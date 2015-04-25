@@ -17,55 +17,49 @@
       /*
         D3.js setup code
       */
-		  
-		  // Set up global variables
-          "use strict";
-          var margin = 40,
-              width = 1000 - margin,
-              height = 600 - margin;
-              
-       //   debugger;
-          
-          // Use d3 to insert a chart title
-          var header = d3.select("body")
-            .append("h2")
-              .text("Oscars Best Picture Nominees by Production Budget");
+	// Set up global variables
+        "use strict";
+        var margin = 40,
+            width = 1000 - margin,
+            height = 600 - margin;
+
+        // Use d3 to insert a chart title
+        var header = d3.select("body")
+          .append("h2")
+            .text("Oscars Best Picture Nominees by Production Budget");
         
 
-		  // Use d3 to create svg and then append g for chart
-          var svg = d3.select("body")
-            .append("svg")
-              .attr("width", width + margin)
-              .attr("height", height + margin)
-            .append('g')
-                .attr('class','chart');
+	// Use d3 to create svg and then append g for chart
+        var svg = d3.select("body")
+          .append("svg")
+            .attr("width", width + margin)
+            .attr("height", height + margin)
+          .append('g')
+            .attr('class','chart');
 
       /*
         Dimple.js Chart construction code
       */
 
-          var myChart = new dimple.chart(svg, data);
+        var myChart = new dimple.chart(svg, data);
+     
+        // Create x-axis
+        var x = myChart.addCategoryAxis("x", "Year"); 
           
-          //data = dimple.filterData(data, "outcome", "Winner");
-          
-          // Create x-axis
-          var x = myChart.addCategoryAxis("x", "Year"); 
-          // x.dateParseFormat = "%Y";
-          // x.tickFormat = "%Y";
-          
-          // Create y-axis
-          myChart.addMeasureAxis("y", "Budget $");
-          
-          myChart.addMeasureAxis("z", "Opening Weekend Takings $")
+        // Create y-axis
+        myChart.addMeasureAxis("y", "Budget $");
+        
+        // Create z-axis - i.e. Bubble size  
+        myChart.addMeasureAxis("z", "Opening Weekend Takings $")
          
+        // Group by individual film and whether it was a winner or a nominee
+        myChart.addSeries(["Film","Outcome"], dimple.plot.bubble);
+        
+        // Display and position legend  
+        myChart.addLegend(120, 70, 100, 40, "right");
           
-          // First argument groups by a column
-          myChart.addSeries(["Film","Outcome"], dimple.plot.bubble);
-          
-          myChart.addLegend(120, 70, 100, 40, "right");
-          
-          // Draw chart
-          myChart.draw();
+        // Draw chart
+        myChart.draw();
         };
       </script>
   </head>
