@@ -266,8 +266,8 @@
                                 return count_scale(d['Budget $']);
                             })
                             .attr('r', function (d) {
-                                //return Math.sqrt(d['takings']) * width / 100;
-                                return (Math.sqrt(d['takings']) * width / 100) * dotSize;
+                                return (Math.sqrt(d['takings']) * width / 100);
+                                //return (Math.sqrt(d['takings']) * width / 100) * dotSize;
                             })
 
 
