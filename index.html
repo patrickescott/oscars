@@ -111,7 +111,7 @@
             .selectAll("circle")
             .data(data)
             .enter()
-            .append("circle")
+            .append("circle");
 
         // Determines scale for x-axis (time)
         var time_extent = d3.extent(data, function(d) {
