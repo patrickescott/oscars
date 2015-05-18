@@ -232,11 +232,23 @@
         d3.select('svg').remove();
         
         if (d3.select('svg').empty()) {
-            draw(data);
+            d3.csv("oscars.csv", function(d) {
+        	d['Budget $'] = +d["Budget $"];
+	 	d['Year'] = format.parse(d['Year']);
+        	d['takings'] = +d['takings'];
+        	d['First Month'] = +d['First Month'];
+        	return d;
+    	    }, draw);
         }
         else {
 	    d3.select('svg').remove();
-	    draw(data);
+	    d3.csv("oscars.csv", function(d) {
+        	d['Budget $'] = +d["Budget $"];
+	 	d['Year'] = format.parse(d['Year']);
+        	d['takings'] = +d['takings'];
+        	d['First Month'] = +d['First Month'];
+        	return d;
+    	    }, draw);
         }
       };
 
