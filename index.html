@@ -160,8 +160,8 @@
                             })
                             // Changes r and fill colour depending on specified criteria
                             .attr('r', function (d) {
-                                //return Math.sqrt(d['takings']) * width / 100;
-                                return (Math.sqrt(d['takings']) * width / 100) * dotSize;
+                                return Math.sqrt(d['takings']) * width / 100;
+                                //return (Math.sqrt(d['takings']) * width / 100) * dotSize;
                             })
                             .attr('fill', function (d) {
                                 if (d['Outcome'] === 'Winner') {
