@@ -80,8 +80,8 @@
 		    // Set up global variables
         "use strict";
         var margin = 40,
-            width = parseInt(d3.select(".chart").style("width")) - margin,
-	    height = parseInt(d3.select(".chart").style("height")) - margin,
+            width = d3.select(".chart")[0][0].scrollWidth - margin,
+	    height = d3.select(".chart")[0][0].scrollHeight - margin,
             intervals = 1;
 
         if (width < 500) {
@@ -239,7 +239,7 @@
         }, draw);
       };
 
-      d3.select(window).on('resize', update); 
+      //d3.select(window).on('resize', update); 
 
       </script>
   <script type="text/javascript">
