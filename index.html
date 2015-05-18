@@ -230,13 +230,14 @@
       // Redraws chart on resize 
       function update(){
         d3.select('svg').remove();
-        d3.csv("oscars.csv", function(d) {
-          d['Budget $'] = +d["Budget $"];
-          d['Year'] = format.parse(d['Year']);
-          d['takings'] = +d['takings'];
-          d['First Month'] = +d['First Month'];
-          return d;
-        }, draw);
+        
+        if (d3.select('svg').empty()) {
+            draw(data);
+        }
+        else {
+	    d3.select('svg').remove();
+	    draw(data);
+        }
       };
 
       d3.select(window).on('resize', update); 
