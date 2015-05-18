@@ -41,7 +41,8 @@
                 font-size: 0.7em;
             }
 
-            .axis {
+            .x_axis,
+            .y_axis {
                 font-size: 0.6em;
             }
 
@@ -82,7 +83,9 @@
                 var chartEl = d3.select('.chart');
                 var margin = {top: 30, right: 30, bottom: 30, left: 30};
                 var width, height, intervals, radius, multiplier;
-                var count_extent, svg, time_extent, time_scale, count_scale, time_axis, count_axis, legend;
+                var count_extent, svg, time_extent, time_scale, count_scale, count_axis, legend;
+                var time_axis = false;
+                var dotSize;
 
                 d3.csv(csvFile, function (d) {
                     d['Budget $'] = +d["Budget $"];
@@ -99,8 +102,6 @@
                     // Use d3 to create svg and then append g for chart
                     svg = d3.select("div")
                             .append("svg")
-                            //.attr("width", width + margin.left + margin.right)
-                            //.attr("height", height + margin.top + margin.bottom)
                             .attr("width", width)
                             .attr("height", height)
                             .append('g')
@@ -114,7 +115,7 @@
 
                     d3.select("svg")
                             .append('g')
-                            .attr('class', 'x axis')
+                            .attr('class', 'x_axis')
                             .attr('transform', "translate(0," + (height - margin.bottom - margin.top) + ")")
                             .call(time_axis);
 
@@ -125,7 +126,7 @@
 
                     d3.select("svg")
                             .append('g')
-                            .attr('class', 'y axis')
+                            .attr('class', 'y_axis')
                             .attr('transform', "translate(" + margin.left + ",0)")
                             .call(count_axis)
                             .append('text')
@@ -149,7 +150,7 @@
 
                     // Plots circles
                     d3.selectAll('circle')
-                            .attr('class','bubble')
+                            .attr('class', 'bubble')
                             .attr('cx', function (d) {
                                 return time_scale(d['Year']);
                             })
@@ -158,7 +159,8 @@
                             })
                             // Changes r and fill colour depending on specified criteria
                             .attr('r', function (d) {
-                                return Math.sqrt(d['takings']) * width / 100;
+                                //return Math.sqrt(d['takings']) * width / 100;
+                                return (Math.sqrt(d['takings']) * width / 100) * dotSize;
                             })
                             .attr('fill', function (d) {
                                 if (d['Outcome'] === 'Winner') {
@@ -181,8 +183,6 @@
 
                     legend.append("circle")
                             .attr("cy", function (d, i) {
-                                console.log("d"+d)
-                                console.log("i"+i)
                                 return i * 30;
                             })
                             .attr("r", function (d) {
@@ -210,8 +210,10 @@
                     width = parseInt(chartEl.style('width'), 10);
                     height = parseInt(chartEl.style('height'), 10);
                     intervals = 1;
+                    dotSize = 1.5;
 
                     if (width < 500) {
+                        dotSize = 2;
                         intervals = 2;
                     }
                     radius = 4;
@@ -236,10 +238,11 @@
                             .domain(count_extent);
 
                     // Creates x-axis
+
                     time_axis = d3.svg.axis()
                             .scale(time_scale)
                             .ticks(d3.time.years, intervals);
-                            
+
                 };
                 d3.select(window).on('resize', function () {
                     if (main.resizeTO) {
@@ -253,7 +256,6 @@
                     main.redraw();
                 });
                 this.redraw = function () {
-                    
                     updateSizes();
 
                     d3.selectAll('circle.bubble')
@@ -263,27 +265,18 @@
                             .attr('cy', function (d) {
                                 return count_scale(d['Budget $']);
                             })
-                             .attr('r', function(d) {
-                                return Math.sqrt(d['takings']) * width/100;
+                            .attr('r', function (d) {
+                                //return Math.sqrt(d['takings']) * width / 100;
+                                return (Math.sqrt(d['takings']) * width / 100) * dotSize;
                             })
-                            .attr('fill', function(d) {
-                                if (d['Outcome'] === 'Winner')  {
-                                    return 'red';
-                                } else {
-                                    return 'steelblue';
-                                }
-                            })
-                            .call(tip)
-                            .on('mouseover', tip.show)
-                            .on('mouseout', tip.hide);
-                    
-                    d3.select('.x axis')
-                        .attr('transform', "translate(0," + (height - margin.bottom - margin.top) + ")")
-                        .call(time_axis);
-                        
-                    d3.select('.y axis')
-                        .attr('transform', "translate(" + margin.left + ",0)")
-                        .call(count_axis);
+
+
+                    d3.select(".x_axis").remove();
+                    d3.select("svg")
+                            .append('g')
+                            .attr('class', 'x_axis')
+                            .attr('transform', "translate(0," + (height - margin.bottom - margin.top) + ")")
+                            .call(time_axis);
                 };
                 // draw(mainData);
             }
