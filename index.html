@@ -239,6 +239,7 @@
                     time_axis = d3.svg.axis()
                             .scale(time_scale)
                             .ticks(d3.time.years, intervals);
+                            
                 };
                 d3.select(window).on('resize', function () {
                     if (main.resizeTO) {
@@ -261,10 +262,16 @@
                             .attr('cy', function (d) {
                                 return count_scale(d['Budget $']);
                             })
-
-
-
-
+                             .attr('r', function(d) {
+                                return Math.sqrt(d['takings']) * width/100;
+                            })
+                            .attr('fill', function(d) {
+                                if (d['Outcome'] === 'Winner')  {
+                                    return 'red';
+                                } else {
+                                    return 'steelblue';
+                                }
+                            })
                 };
                 // draw(mainData);
             }
