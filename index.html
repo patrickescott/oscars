@@ -77,6 +77,7 @@
   <div class='chart'></div>
     <script type="text/javascript">
       
+      // set date format
       format = d3.time.format("%Y");
 
       function draw(data) {
@@ -85,7 +86,7 @@
           D3.js setup code
         */
 		  
-		    // Set up global variables
+	// Set up global variables
         "use strict";
         var margin = 40,
             chart_div = d3.select(".chart"),
@@ -94,14 +95,15 @@
             radius = 4;
 
         var width, height, time_extent, time_scale, count_extent, count_scale, time_axis;
-            
+        
+        // Set scales for axes
         get_dimensions();
 
         // Use d3 to insert a chart title
         d3.select("h2")
             .text("Oscars Best Picture Nominees by Production Budget");
 
-		    // Use d3 to create svg and then append g for chart
+	// Use d3 to create svg and then append g for chart
         var svg = d3.select("div")
           .append("svg")
             .attr("width", width + margin)
@@ -118,7 +120,8 @@
             .data(data)
             .enter()
             .append("circle")
-
+	
+	// creates x-axis
         d3.select("svg")
             .append('g')
             .attr('class', 'x_axis')
@@ -271,8 +274,7 @@
               })
             .attr('r', function (d) {
               return (Math.sqrt(d['takings']) * width / 100) * dotSize;
-              //return (Math.sqrt(d['takings']) * width / 100) * dotSize;
-              })
+              });
 
           // Re-draw x axis
           d3.select(".x_axis").remove();
@@ -283,7 +285,7 @@
             .call(time_axis);
         };
           
-
+	// Listen for resize and update chart
         d3.select(window).on('resize', update); 
 
       };
