@@ -8,7 +8,7 @@ date,New_York,San_Francisco,Austin,Event
 20120821,53.6,46.4,0,None
 20120822,54.7,45.3,0,None
 20120823,54.6,45.4,0,None
-20120824,56,44,50,Trump imposes ban on immigration from seven Muslim-majority nations
+20120824,56,44,30,Trump imposes ban on immigration from seven Muslim-majority nations
 20120825,56.2,43.8,0,None
 20120826,53.4,46.6,0,None
 20120827,54.6,45.4,0,None
@@ -24,7 +24,7 @@ date,New_York,San_Francisco,Austin,Event
 20120906,54.2,45.8,0,None
 20120907,56,44,0,None
 20120908,57.1,42.9,0,None
-20120909,49.7,50.3,50,TrumpDraws Twitter account is created
+20120909,49.7,50.3,30,TrumpDraws Twitter account is created
 20120910,47.8,52.2,0,None
 20120911,44,56,0,None
 20120912,48.1,51.9,0,None
@@ -37,7 +37,7 @@ date,New_York,San_Francisco,Austin,Event
 20120919,47.2,52.8,0,None
 20120920,42.1,57.9,0,None
 20120921,44,56,0,None
-20120922,45.5,54.5,50,Something else fucking awful happens
+20120922,45.5,54.5,30,Something else happens
 20120923,45.7,54.3,0,None
 20120924,40.4,59.6,0,None
 20120925,43.2,56.8,0,None
